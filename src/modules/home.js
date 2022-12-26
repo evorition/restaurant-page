@@ -1,4 +1,4 @@
-import SushiImage from "../images/sushi.jpg";
+import SushiImg from "../images/sushi.jpg";
 
 const loadHome = ((() => {
   const container = document.createElement("div");
@@ -7,7 +7,7 @@ const loadHome = ((() => {
   header.textContent = "Yakuza sushi bar";
 
   const sushiImage = document.createElement("img");
-  sushiImage.src = SushiImage;
+  sushiImage.src = SushiImg;
 
   const description = document.createElement("p");
   description.textContent = "You have never in your life tried sushi like this. Come and see yourself!";
