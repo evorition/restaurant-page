@@ -3,24 +3,37 @@ import loadHome from "./modules/home";
 import loadMenu from "./modules/menu";
 import loadContacts from "./modules/contacts";
 
-document.body.insertBefore(navBar, document.body.firstChild);
-const contentContainer = document.querySelector("#content");
-contentContainer.appendChild(loadHome);
+((() => {
+  // Initialization
+  document.body.insertBefore(navBar, document.body.firstChild);
+  const contentContainer = document.querySelector("#content");
+  contentContainer.appendChild(loadHome);
 
-function listenButton(btn) {
-  contentContainer.textContent = "";
-  switch (btn.textContent) {
-    case 'Home':
-      contentContainer.appendChild(loadHome);
-      break;
-    case 'Menu':
-      contentContainer.appendChild(loadMenu);
-      break;
-    case 'Contacts':
-      contentContainer.appendChild(loadContacts);
-      break;
-  }
-}
+  // Tab switcher
+  const navBarBtns = navBar.querySelectorAll("button");
+  navBarBtns.forEach(btn => btn.addEventListener("click", e => {
+    if (e.target.classList.contains("selected")) {
+      return;
+    }
 
-const navButtons = document.querySelectorAll("button");
-navButtons.forEach(button => button.addEventListener("click", () => listenButton(button)));
+    for (const button of navBarBtns) {
+      if (button.classList.contains("selected")) {
+        button.classList.toggle("selected");
+      }
+    }
+
+    e.target.classList.toggle("selected")
+    contentContainer.textContent = "";
+    switch (e.target.id) {
+      case "home-btn":
+        contentContainer.appendChild(loadHome);
+        break;
+      case "menu-btn":
+        contentContainer.appendChild(loadMenu);
+        break;
+      case "contacts-btn":
+        contentContainer.appendChild(loadContacts);
+        break;
+    }
+  }));
+})());
